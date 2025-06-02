@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import "./Login.css";
+import { API_BASE_URL } from "../../config"
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
