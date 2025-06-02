@@ -8,7 +8,7 @@ require('dotenv').config(); // .env dosyasını okuyabilmesi için
 
 exports.login = async (req, res) => {
     const { email, password } = req.body;
-
+    console.log('Gelen Body:', req.body);
     try {
         const user = await User.findOne({ where: { email } });
         if (user) {
@@ -20,6 +20,9 @@ exports.login = async (req, res) => {
                     process.env.JWT_SECRET,
                     { expiresIn: '2h' } // Token 2 saat geçerli
                 );
+
+                console.log("Token:", token);
+                console.log("Dönen kullanıcı:", user);
 
                 return res.status(200).json({
                     message: 'Giriş başarılı!',
