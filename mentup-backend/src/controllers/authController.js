@@ -22,6 +22,9 @@ exports.login = async (req, res) => {
     }
     console.log("🔹 Veritabanındaki hash:", user.password);
 
+    console.log("🔹 Gelen user:", user);
+    console.log("🔹 Gelen user.password:", user?.password);
+
     const isPasswordValid = await bcrypt.compare(password, user.password);
     console.log("🔹 Şifre doğru mu:", isPasswordValid);
 
@@ -55,11 +58,12 @@ exports.login = async (req, res) => {
         role: user.role
       }
     });
+
   } catch (error) {
-  console.error('🔴 Login hatası:', error.message);
-  console.error('🔴 Detay:', error);
-  res.status(500).json({ message: 'Sunucu hatası', detail: error.message });
-}
+  console.error('🔴 Login hatası:', error);  // Tüm hatayı yazdır
+  res.status(500).json({ message: 'Sunucu hatası', detail: error.stack }); // stack trace gönder
+  }
+
 };
 
 
