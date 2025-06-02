@@ -17,5 +17,9 @@ router.post('/logout', logout);
 router.post('/request-reset', authController.requestPasswordReset);
 router.post('/reset-password', authController.resetPassword);
 
+router.get('/test', (req, res) => {
+  return res.status(200).json({ message: "Auth route çalışıyor" });
+});
+
 
 module.exports = router;
