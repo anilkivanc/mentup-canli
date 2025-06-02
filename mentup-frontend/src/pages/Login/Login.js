@@ -24,7 +24,7 @@ const Login = () => {
     setMessage("");
 
     try {
-      const response = await fetch(`${API_BASE_URL}/auth/login`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -67,7 +67,7 @@ const Login = () => {
 
   const fetchUserRole = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/user/role`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/role`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
