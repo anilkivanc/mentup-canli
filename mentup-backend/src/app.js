@@ -19,7 +19,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://mentup-frontend-7u5v.onrender.com" // render link
+  "https://mentup-canli.onrender.com" // render link
 ];
 
 // ✅ CORS

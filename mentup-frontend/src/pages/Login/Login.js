@@ -67,7 +67,7 @@ const Login = () => {
 
   const fetchUserRole = async () => {
     try {
-      const response = await fetch("http://localhost:5001/user/role", {
+      const response = await fetch(`${API_BASE_URL}/user/role`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
