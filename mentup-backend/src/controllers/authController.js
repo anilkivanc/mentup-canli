@@ -44,9 +44,10 @@ exports.login = async (req, res) => {
       }
     });
   } catch (error) {
-    console.error('Login hatası:', error);
-    return res.status(500).json({ message: 'Bir hata oluştu' });
-  }
+  console.error('🔴 Login hatası:', error.message);
+  console.error('🔴 Detay:', error);
+  res.status(500).json({ message: 'Sunucu hatası', detail: error.message });
+}
 };
 
 
