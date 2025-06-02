@@ -12,16 +12,25 @@ exports.login = async (req, res) => {
 
   try {
     const user = await User.findOne({ where: { email } });
-
+    console.log("🔹 Kullanıcı bulundu:", user);
     if (!user) {
+      console.log("🔸 Kullanıcı bulunamadı.");
       return res.status(401).json({ message: 'Hatalı e-posta veya şifre!' });
     }
+    console.log("🔹 Veritabanındaki hash:", user.password);
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
+    console.log("🔹 Şifre doğru mu:", isPasswordValid);
 
     if (!isPasswordValid) {
       return res.status(401).json({ message: 'Hatalı e-posta veya şifre!' });
+      console.log("🔸 Şifre yanlış.");
     }
+
+    console.log("🔹 JWT_SECRET:", process.env.JWT_SECRET);
+
+    // Token oluşturuluyor logu
+    console.log("🔹 JWT oluşturuluyor...");
 
     const token = jwt.sign(
       { id: user.id, email: user.email, name: user.name },
