@@ -5,6 +5,10 @@ const validate = require('../middlewares/validate');
 const { signupValidation, loginValidation } = require('../services/userValidation');
 const { logout } = require('../controllers/authController');
 
+router.get('/test', (req, res) => {
+  res.json({ message: "✅ Backend ayakta, /auth/test çalışıyor!" });
+});
+
 // Signup route
 router.post('/signup', validate(signupValidation), authController.signup);
 
