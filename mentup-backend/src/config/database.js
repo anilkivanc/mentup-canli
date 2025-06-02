@@ -17,6 +17,10 @@ const sequelize = new Sequelize(dbUrl, {
     : {},
 });
 
+console.log("📡 Bağlanmaya çalışılan connection string:");
+console.log(connectionString);
+
+
 // --- ESKİ KODLAR ---
 // const DB_HOST = isProduction ? process.env.RENDER_DB_HOST : process.env.PG_HOST;
 // const DB_PORT = isProduction ? process.env.RENDER_DB_PORT : process.env.PG_PORT;
