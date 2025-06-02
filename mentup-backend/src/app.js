@@ -24,8 +24,14 @@ const allowedOrigins = [
 
 // ✅ CORS
 app.use(cors({
-  origin: allowedOrigins, // Frontend adresleri
-  credentials: true
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true, // Eğer cookie ya da token taşınıyorsa bu true olmalı
 }));
 
 app.options("*", cors()); // ✅ Tüm route'lara CORS header'ı ekler
