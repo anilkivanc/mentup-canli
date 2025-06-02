@@ -94,5 +94,4 @@ mentup-frontend/.cache/
 mentup-backend/node_modules/
 mentup-backend/.env
 mentup-backend/src/uploads/
-mentup-backend/package-lock.json
-mentup-backend/package.json
+
