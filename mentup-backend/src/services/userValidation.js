@@ -31,7 +31,7 @@ const loginValidation = Joi.object({
         'string.email': 'Geçerli bir e-posta adresi giriniz.',
         'any.required': 'E-posta adresi zorunludur.',
     }),
-    password: Joi.string().min(4).required().messages({
+    password: Joi.string().min(6).required().messages({
         'string.min': 'Şifre en az 6 karakter olmalıdır.',
         'any.required': 'Şifre alanı zorunludur.',
     }),
