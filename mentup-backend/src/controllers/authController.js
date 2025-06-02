@@ -7,43 +7,48 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config(); // .env dosyasını okuyabilmesi için
 
 exports.login = async (req, res) => {
-    const { email, password } = req.body;
-    console.log('Gelen Body:', req.body);
-    try {
-        const user = await User.findOne({ where: { email } });
-        if (user) {
-            const isPasswordValid = await bcrypt.compare(password, user.password);
-            if (isPasswordValid) {
-                // ✅ JWT token oluştur
-                const token = jwt.sign(
-                    { id: user.id, email: user.email, name: user.name }, // payload
-                    process.env.JWT_SECRET,
-                    { expiresIn: '2h' } // Token 2 saat geçerli
-                );
+  const { email, password } = req.body;
+  console.log('Gelen Body:', req.body);
 
-                console.log("Token:", token);
-                console.log("Dönen kullanıcı:", user);
+  try {
+    const user = await User.findOne({ where: { email } });
 
-                return res.status(200).json({
-                    message: 'Giriş başarılı!',
-                    token,
-                    user: {
-                        id: user.id,
-                        name: user.name,
-                        surname: user.surname,
-                        email: user.email,
-                        role: user.role // Rolü döndürüyoruz
-                    }
-                });
-            }
-        }
-
-        res.status(401).json({ message: 'Hatalı e-posta veya şifre!' });
-    } catch (error) {
-        console.error('Login hatası:', error);
-        res.status(500).json({ message: 'Bir hata oluştu' });
+    if (!user) {
+      return res.status(401).json({ message: 'Hatalı e-posta veya şifre!' });
     }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: 'Hatalı e-posta veya şifre!' });
+    }
+
+    const token = jwt.sign(
+      { id: user.id, email: user.email, name: user.name },
+      process.env.JWT_SECRET,
+      { expiresIn: '2h' }
+    );
+
+    console.log("Token:", token);
+    console.log("Dönen kullanıcı:", user);
+
+    return res.status(200).json({
+      message: 'Giriş başarılı!',
+      token,
+      user: {
+        id: user.id,
+        name: user.name,
+        surname: user.surname,
+        email: user.email,
+        role: user.role
+      }
+    });
+  } catch (error) {
+    console.error('Login hatası:', error);
+    return res.status(500).json({ message: 'Bir hata oluştu' });
+  }
 };
+
 
 
 // Signup işlemi
