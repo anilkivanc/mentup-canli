@@ -16,7 +16,7 @@ exports.login = async (req, res) => {
             if (isPasswordValid) {
                 // ✅ JWT token oluştur
                 const token = jwt.sign(
-                    { id: user.id, ehmail: user.email, name: user.name }, // payload
+                    { id: user.id, email: user.email, name: user.name }, // payload
                     process.env.JWT_SECRET,
                     { expiresIn: '2h' } // Token 2 saat geçerli
                 );
