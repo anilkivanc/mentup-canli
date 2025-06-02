@@ -17,21 +17,27 @@ const path = require('path');
 
 const app = express();
 
-const allowedOrigins = [
-  "http://localhost:3000",
-  "https://mentup-canli.onrender.com" // render link
-];
+// --- ESKİ CORS ---
+// const allowedOrigins = [
+//   "http://localhost:3000",
+//   "https://mentup-canli.onrender.com" // render link
+// ];
+// app.use(cors({
+//   origin: function (origin, callback) {
+//     if (!origin || allowedOrigins.includes(origin)) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   },
+//   credentials: true, // Eğer cookie ya da token taşınıyorsa bu true olmalı
+// }));
+// app.options("*", cors());
 
-// ✅ CORS
+// --- YENİ CORS ---
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true, // Eğer cookie ya da token taşınıyorsa bu true olmalı
+  origin: process.env.FRONTEND_URL,
+  credentials: true
 }));
 
 app.options("*", cors()); // ✅ Tüm route'lara CORS header'ı ekler

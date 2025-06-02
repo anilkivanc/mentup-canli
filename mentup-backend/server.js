@@ -1,4 +1,4 @@
-require('dotenv').config(); // .env dosyasını yükler
+require('dotenv').config();
 const app = require('./src/app');
 const sequelize = require('./src/config/database'); // Sequelize bağlantı dosyanız
 const db = require('./src/models'); // Model dosyanız
