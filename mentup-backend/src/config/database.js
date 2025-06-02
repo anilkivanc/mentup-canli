@@ -1,11 +1,21 @@
 const { Sequelize } = require('sequelize');
 require('dotenv').config();
 
-const isProduction = process.env.NODE_ENV === 'production';
-const dbUrl = isProduction ? process.env.DATABASE_URL : process.env.LOCAL_DATABASE_URL;
+const { Sequelize } = require('sequelize');
+require('dotenv').config();
 
-const sequelize = new Sequelize(dbUrl, {
+const isProduction = process.env.NODE_ENV === 'production';
+const connectionString = isProduction
+  ? process.env.DATABASE_URL
+  : process.env.LOCAL_DATABASE_URL;
+
+// 🔽 TAM BU SATIRDA LOG AT
+console.log("📡 Bağlanmaya çalışılan connection string:");
+console.log(connectionString);
+
+const sequelize = new Sequelize(connectionString, {
   dialect: 'postgres',
+  protocol: 'postgres',
   logging: false,
   dialectOptions: isProduction
     ? {
@@ -17,8 +27,7 @@ const sequelize = new Sequelize(dbUrl, {
     : {},
 });
 
-console.log("📡 Bağlanmaya çalışılan connection string:");
-console.log(connectionString);
+module.exports = sequelize;
 
 
 // --- ESKİ KODLAR ---
@@ -50,4 +59,4 @@ console.log(connectionString);
 //     .then(() => console.log('📦 PostgreSQL bağlantısı başarılı!'))
 //     .catch((err) => console.error('❌ PostgreSQL bağlantı hatası:', err));
 
-module.exports = sequelize;
+//module.exports = sequelize;
