@@ -11,7 +11,10 @@ exports.login = async (req, res) => {
   console.log('Gelen Body:', req.body);
 
   try {
-    const user = await User.findOne({ where: { email } });
+    const user = await User.findOne({ 
+      where: { email },
+      attributes: ['id', 'name', 'surname', 'email', 'password', 'role'] // Şifreyi de al
+     });
     console.log("🔹 Kullanıcı bulundu:", user);
     if (!user) {
       console.log("🔸 Kullanıcı bulunamadı.");
